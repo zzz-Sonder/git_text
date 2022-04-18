@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <button>点击获取学生信息</button>
+    <table border="1" width="50%" cellspacing="0" cellpadding="0" align="center">
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>联系方式</th>
+                <th>班级信息</th>
+                <th>专业信息</th>
+                <th>兴趣爱好</th>
+                <th>书籍信息</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
+</body>
+<script type="text/javascript">
+    var stu = [{
+        stuNumber: '001',
+        stuName: '张三',
+        stuAge: '18',
+        stuContact: '132546789',
+        stuClass: '班级信息',
+        stuSpe: '专业信息',
+        stuHobby: '兴趣爱好',
+        stuBook: '书籍信息',
+    }, {
+        stuNumber: '002',
+        stuName: '张三',
+        stuAge: '18',
+        stuContact: '132546789',
+        stuClass: '班级信息',
+        stuSpe: '专业信息',
+        stuHobby: '兴趣爱好',
+        stuBook: '书籍信息',
+    }, {
+        stuNumber: '003',
+        stuName: '张三',
+        stuAge: '18',
+        stuContact: '132546789',
+        stuClass: '班级信息',
+        stuSpe: '专业信息',
+        stuHobby: '兴趣爱好',
+        stuBook: '书籍信息',
+    }]
+    var btn = document.querySelector('button')
+    btn.onclick = function() {
+        var tbody = document.querySelector('tbody')
+        for (var i = 0; i < stu.length; i++) {
+            //一个学生对应一行表格
+            var tr = document.createElement("tr")
+                //将每个学生的数据行添加到表格中
+            tbody.appendChild(tr)
+                //循环遍历每个学生对象的属性
+            for (var k in stu[i]) {
+                //学生对象中的一个属性对应一个单元格
+                // console.log(k)
+                var td = document.createElement("td")
+                    //解析对应学生对象的属性并复制给对应单元格
+                    // td.innerText = stu[i][k]
+                console.log(k)
+                if (k == 'stuNumber' || k == 'stuName' || k == 'stuAge' || k == 'stuContact') {
+                    td.innerHTML = stu[i][k]
+                } else {
+                    td.innerHTML = "<a href=''>xx</a>"
+                }
+                //将每个学生的属性单元格添加到对应学生所在表格行
+                tr.appendChild(td)
+            }
+            //				var td=document.createElement('td')
+            //				td.innerHTML="<a class='inf' href='javascript:;'>班级信息</a>"
+            //				tr.appendChild(td)
+            //				var td=document.createElement('td')
+            //				td.innerHTML="<a class='inf' href='javascript:;'>专业信息</a>"
+            //				tr.appendChild(td)
+            //				var td=document.createElement('td')
+            //				td.innerHTML="<a class='inf' href='javascript:;'>兴趣爱好</a>"
+            //				tr.appendChild(td)
+            //				var td=document.createElement('td')
+            //				td.innerHTML="<a class='inf' href='javascript:;'>书籍信息</a>"
+            //				tr.appendChild(td)
+            var td = document.createElement('td')
+            td.innerHTML = "<a class='del' href='javascript:;'>删除</a>"
+            tr.appendChild(td)
+
+        }
+        //			var inf=document.querySelectorAll('.inf')
+        //			for(var i=0;i<inf.length;i++){
+        //				inf[i].onclick=function(){
+        //					alert('各种信息')
+        //				}
+        //			}
+        var del = document.querySelector('.del')
+        for (var i = 0; i < del.length; i++) {
+            del[i].onclick = function() {
+                tbody.removeChild(this.parentNode.parentNode)
+            }
+        }
+
+    }
+</script>
+
+</html>

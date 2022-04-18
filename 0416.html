@@ -1,75 +1,81 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-	<p>
-				<label>用户名注册：</label>
-				<input name="zhuce" id='username' placeholder="请输入注册名" />
-					<input type="submit"  id='button' value="提交"/>	
-					<span id="spo"></span>
-	</p>
-	
-	<p>
-			<label>笑话查询：</label>
-			<input type="text" name="num" id='usernum' placeholder="请输入查询条数" />
-			<input type="submit"  id='buttom' value="提交"/>	
-			<span id="spt"></span>
-	</p>
-		<div class="result"><ul id="uu"></ul></div>
-	</body>
-	<script>
-	   var username = document.querySelector('#username')
-	   var btn = document.querySelector('#button');
-	   var spo= document.querySelector('#spo');
-	   btn.addEventListener("click",function(){
-	   	
-		let xhr=new XMLHttpRequest()
-		
-		xhr.open("POST","https://autumnfish.cn/api/user/reg")
-		
-		xhr.setRequestHeader("Content-Type","application/json")
-		xhr.send(JSON.stringify({"username":username.value}))
-		xhr.onload=function(e){
-			if(xhr.readyState==4 && xhr.status==200){
-				console.log(xhr.responseText)
-				spo.innerHTML = xhr.responseText
-			}
-		}
-	   })
-	   //笑话
-	   var usernum = document.querySelector('#usernum');
-	   var btm = document.querySelector('#buttom');
-	   var spt= document.querySelector('#spt');
-	   var reslut =document.querySelector(".result");
-	   btm.addEventListener("click",function(){
-	   	var num = usernum.value;
-	   	var ul = document.querySelector("#uu");
-	   	//非零正整数
-	   	const pp=/^[1-9]\d*$/;
-	   	if(pp.test(num) == true){
-	   	let xr=new XMLHttpRequest()
-		xr.open("GET","https://autumnfish.cn/api/joke/list?num="+num);
-		xr.send()
-		xr.onload=function () {
-				//xhr.responseText:获取服务器响应结果（不论服务器返回的是什么类型的数据，ajax接收到的都是一个字符串）
-				let data=JSON.parse(xr.responseText);
-				spt.innerHTML = ""
-				console.log(data)
-				//处理返回结果，并将结果渲染到HTML页面上
-				let rs = data.jokes
-				for (var i =0; i<rs.length; i++){
-					var li =document.createElement("li")
-					li.innerHTML =rs[i];
-					ul.appendChild(li)
-				}
-			}
-	   	}
-	   	else{
-	   		spt.innerHTML ="输入有误重新输入"
-	   	}
-	   })
-	</script>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <p>
+        <label>用户名注册:</label>
+        <input name="zhuce" id='username' placeholder="请输入注册名" />
+        <input type="submit" id='button' value="提交" />
+        <span id="spo"></span>
+    </p>
+
+    <p>
+        <label>笑话查询：</label>
+        <input type="text" name="num" id='usernum' placeholder="请输入查询条数" />
+        <input type="submit" id='buttom' value="提交" />
+        <span id="spt"></span>
+    </p>
+    <div class="result">
+        <ul id="uu"></ul>
+    </div>
+</body>
+<script>
+    var username = document.querySelector('#username')
+    var btn = document.querySelector('#button');
+    var spo = document.querySelector('#spo');
+    btn.addEventListener("click", function() {
+
+            let xhr = new XMLHttpRequest()
+
+            xhr.open("POST", "https://autumnfish.cn/api/user/reg")
+
+            xhr.setRequestHeader("Content-Type", "application/json")
+            xhr.send(JSON.stringify({
+                "username": username.value
+            }))
+            xhr.onload = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    console.log(xhr.responseText)
+                    spo.innerHTML = xhr.responseText
+                }
+            }
+        })
+        //笑话
+    var usernum = document.querySelector('#usernum');
+    var btm = document.querySelector('#buttom');
+    var spt = document.querySelector('#spt');
+    var reslut = document.querySelector(".result");
+    btm.addEventListener("click", function() {
+        var num = usernum.value;
+        var ul = document.querySelector("#uu");
+        //非零正整数
+        const pp = /^[1-9]\d*$/;
+        if (pp.test(num) == true) {
+            let xr = new XMLHttpRequest()
+            xr.open("GET", "https://autumnfish.cn/api/joke/list?num=" + num);
+            xr.send()
+            xr.onload = function() {
+                //xhr.responseText:获取服务器响应结果（不论服务器返回的是什么类型的数据，ajax接收到的都是一个字符串）
+                let data = JSON.parse(xr.responseText);
+                spt.innerHTML = ""
+                console.log(data)
+                    //处理返回结果，并将结果渲染到HTML页面上
+                let rs = data.jokes
+                for (var i = 0; i < rs.length; i++) {
+                    var li = document.createElement("li")
+                    li.innerHTML = rs[i];
+                    ul.appendChild(li)
+                }
+            }
+        } else {
+            spt.innerHTML = "输入有误重新输入"
+        }
+    })
+</script>
+
 </html>

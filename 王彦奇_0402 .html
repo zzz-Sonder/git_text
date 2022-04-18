@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <button>获取数据</button>
+    <table cellpadding="0" cellspacing="0" border="1" width="70%" align="center" height="500">
+        <caption>学生信息</caption>
+        <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>年龄</th>
+                <th>电话号码</th>
+                <th>所在班级</th>
+                <th>老师信息</th>
+                <th>地址信息</th>
+                <th>专业信息</th>
+                <th>兴趣爱好</th>
+                <th>书籍信息</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="11">正在拼命加载数据。。。。</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+<script>
+    stu1 = [{
+        "stuNo": "1",
+        "stuName": "鸭鸭",
+        "age": 18,
+        "phone": 11111111,
+        "class": "1: 智能科学与技术1班",
+        "teacher": "周老师: 女",
+        "address": "xxxx",
+        "profession": "xxxx",
+        "interes": "xxxx",
+        "books": "xxxx",
+        "action": "xxxx"
+    }, {
+        "stuNo": "2",
+        "stuName": "鸭鸭1",
+        "age": 19,
+        "phone": 22222222,
+        "class": "2: 智能科学与技术2班",
+        "teacher": "向老师: 男",
+        "address": "xxxx",
+        "profession": "xxxx",
+        "interes": "xxxx",
+        "books": "xxxx",
+        "action": "xxxx"
+    }, {
+        "stuNo": "3",
+        "stuName": "鸭鸭2",
+        "age": 20,
+        "phone": 33333333,
+        "class": "3: 智能科学与技术3班",
+        "teacher": "王老师: 女",
+        "address": "xxxx",
+        "profession": "xxxx",
+        "interes": "xxxx",
+        "books": "xxxx",
+        "action": "xxxx"
+    }, {
+        "stuNo": "4",
+        "stuName": "鸭鸭3",
+        "age": 21,
+        "phone": 44444444,
+        "class": "1: 智能科学与技术2班",
+        "teacher": "邹老师: 女",
+        "address": "xxxx",
+        "profession": "xxxx",
+        "interes": "xxxx",
+        "books": "xxxx",
+        "action": "xxxx"
+    }, {
+        "stuNo": "5",
+        "stuName": "鸭鸭4",
+        "age": 18,
+        "phone": 55555555,
+        "class": "1: 智能科学与技术2班",
+        "teacher": "李老师: 男",
+        "address": "xxxx",
+        "profession": "xxxx",
+        "interes": "xxxx",
+        "books": "xxxx",
+        "action": "xxxx"
+    }, {
+        "stuNo": "6",
+        "stuName": "鸭鸭5",
+        "age": 19,
+        "phone": 66666666,
+        "class": "1: 智能科学与技术2班",
+        "teacher": "韩老师: 女",
+        "address": "xxxx",
+        "profession": "xxxx",
+        "interes": "xxxx",
+        "books": "xxxx",
+        "action": "xxxx"
+    }]
+    var btn = document.querySelector("button")
+    var tbody = document.querySelector("tbody")
+    btn.onclick = function() {
+        tbody.innerHTML = ""
+        var stu = []
+        for (var i = 0; i < stu1.length; i++) {
+            var stuR = document.createElement("tr")
+            tbody.append(stuR)
+            for (var a in stu1[i]) {
+                var td = document.createElement("td")
+                stuR.append(td)
+                td.innerText = stu1[i][a]
+
+                if (a == 'stuNo' || a == 'stuName' || a == 'age' || a == 'phone') {
+                    td.innerText = stu1[i][a]
+
+                } else if (a == "action") {
+                    td.innerHTML = '<a href="#" onclick="del(this)"">删除</a>'
+                } else {
+                    td.innerHTML = '<a href="#" onclick="check(this)">信息</a>'
+                }
+            }
+        }
+        tbody.appendChild(stuR)
+    }
+
+    function del(o) {
+        var x = confirm("是否确认删除，删除后无法恢复")
+        if (x) {
+            var delNode = o.parentNode.parentNode
+            delNode.parentNode.removeChild(delNode)
+        }
+    }
+
+    function check(o) {
+        var str = ''
+        for (var i = 0; i < stu1.length; i++) {
+            for (var a in stu1[i]) {
+                var x = stu1[i].class
+            }
+        }
+        alert("详情信息:" + "\n" + JSON.stringify(stu1[0].class).replace(":", "\n").replace('"', '').replace('"', ''))
+    }
+</script>
+
+</html>

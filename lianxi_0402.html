@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <button onclick="click1()">点我删除</button>
+    <div id="father">
+        <div id="son1">1</div>
+        <div id="son2">2</div>
+        <div id="son3">3</div>
+    </div>
+    <ul>
+        <li>无序1<a href="#" onclick="del(this)">删除</a></li>
+        <li>无序2<a href="#" onclick="del(this)">删除</a></li>
+        <li>无序3<a href="#" onclick="del(this)">删除</a></li>
+        <li>无序4<a href="#" onclick="del(this)">删除</a></li>
+    </ul>
+
+</body>
+<script type="text/javascript">
+    var father = document.querySelector('#father')
+    console.dir(father.children.length)
+
+    function click1() {
+        // father.removeChild(father.children[0])
+        father.removeChild(father.children[0])
+
+    }
+
+
+    // var fu = son1.parentNode
+    // console.dir(fu)
+    // console.dir(fu.firstElementChild)
+    // var er = father.childNodes //包含文本节点
+    // console.dir(er)
+    // var er1 = father.children //不包含文本节点
+    // console.dir(er1)
+    // var bro = son1.nextElementSibling //向下找兄弟
+    // console.dir(bro)
+    // var bro1 = son3.previousElementSibling //向上找兄弟
+    // console.dir(bro1)
+
+    //		var btn=document.querySelector("button")
+
+
+
+    function del(o) {
+        var delNode = o.parentNode
+        delNode.parentNode.removeChild(delNode)
+    }
+</script>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+    <form action="javascript:;" method="post">
+        电话号码：<input type="text" autocomplete="off" />
+        <button type="submit">获取验证码</button>
+    </form>
+    <div></div>
+</body>
+<script>
+    var button = document.querySelector("button")
+    var div = document.querySelector("div")
+    var input = document.querySelector("input")
+    var time = 5
+    button.addEventListener("click", daojishi)
+    var s = document.createTextNode("")
+    var con = document.createElement("p")
+    con.appendChild(s)
+    div.appendChild(con)
+
+    function daojishi() {
+        if (!input.value || input.value.length != 11) {
+            con.innerText = "请输入11位电话号码"
+            con.style.color = "red"
+        } else {
+            con.innerText = ""
+            var timer = setInterval(function() {
+
+                if (time == 0) {
+                    button.innerText = "获取验证码"
+                    clearInterval(timer)
+                    return
+                }
+                button.innerText = time + "秒后可重新获取"
+                time--
+            }, 1000)
+        }
+    }
+
+    // 	var button = document.querySelector("button")
+    // button.addEventListener("click", function() {
+    //     var time = 5
+    //     var timer = setInterval(function() {
+    //         time--
+    //         button.innerText = time + "秒后可重新获取"
+    //         if (time < 0) {
+    //             button.innerText = "获取验证码"
+    //             clearInterval(timer)
+    //         }
+    //     }, 1000)
+    // })
+</script>
+
+</html>

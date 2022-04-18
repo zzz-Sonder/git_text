@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>用户信息采集</title>
+	</head>
+	<body>
+		<form action="" method="post" onsubmit="return submitForm()">
+			<fieldset>
+				<legend>用户信息采集</legend>
+				
+				<table border="0" cellspacing="0" cellpadding="0" height="500px">
+					<tr id="trNa">
+						<td><label for="userName">用户名：</label></td>
+						<td><input type="text" id="userName" autofocus="autofocus" autocomplete="off" value=""/></td>
+					</tr>
+					<tr id="ageR">
+						<td><label for="age">年龄：</label></td>
+						<td><input type="text" id="age" autocomplete="off" value=""/></td>
+					</tr>
+					<tr id="sexTr">
+						<td>性别：</td>
+						<td>
+							<label for="male"><input type="radio" name="gender" value="0" id="male"/>男</label>
+							<label for="famale"><input type="radio" name="gender" value="1" id="famale"/>女</label>
+						</td>
+					</tr>
+					<tr id="emailTr">
+						<td><label for="email">邮箱：</label></td>
+						<td><input type="text" id="email" autocomplete="off"/></td>
+					</tr>
+					<tr id="tel">
+						<td><label for="phoNum">联系方式：</label></td>
+						<td><input type="text" id="phoNum"/></td>
+					</tr>
+					<tr id="mimaTr">
+						<td><label for="mima">密码：</label></td>
+						<td><input type="password" id="mima" value=""/></td>
+					</tr>
+					<tr id="mimaCreTr">
+						<td><label for="mimaCre">确认密码：</label></td>
+						<td><input type="password" id="mimaCre" value=""/></td>
+					</tr>
+					<tr id="pay">
+						<td>支付方式：</td>
+						<td>
+							<label for="wei"><input type="checkbox" name="payWay" value="v" id="wei"/>微信</label>
+							<label for="zhiFuBao"><input type="checkbox" name="payWay" value="z" id="zhiFuBao"/>支付宝</label>
+							<label for="RMB"><input type="checkbox" name="payWay" value="rmb" id="RMB"/>现金</label>
+							<label for="pal"><input type="checkbox" name="payWay" value="PayPal" id="pal"/>PayPal</label>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"><button value="提交" type="submit">提交</button></td>
+					</tr>
+					
+				</table>
+		</fieldset>
+		</form>
+	</body>
+	<script>
+		//用户名
+		var nameFlag=1
+		var nameDom=document.getElementById("userName")
+		var tdName=document.createElement("td")
+		var trName=document.getElementById("trNa")
+		tdName.innerText="只能输入字母和数字"
+		trName.appendChild(tdName)
+		//验证用户名
+		nameDom.addEventListener("blur",function(){
+			var s=nameDom.value
+			if(s==""){
+				tdName.innerText="不能输入空"
+				tdName.style.color="red"
+				//nameDom.focus()
+				return false
+			}
+			if(s.length<4||s.length>16){
+				tdName.innerText="请输入4-16位"
+				tdName.style.color="red"
+				//nameDom.focus()
+				return false
+			}else{
+				for(var i=0;i<s.length;i++){
+					var t=s[i].charCodeAt()
+					if((t>=48&&t<=57)||(t>=97&&t<=122)||(t>=65&&t<=90)){
+						tdName.innerText="输入格式正确"
+						tdName.style.color="cornflowerblue"
+						nameFlag=2
+					}
+					else{
+						tdName.innerText="只能输入数字和字母"
+						tdName.style.color="red"
+						//nameDom.focus()
+						return false
+					}
+				}
+			}
+		})
+		
+		//年龄
+		var ageFlag=1
+		var ageDom=document.getElementById("age")
+		var ageTd=document.createElement("td")
+		var ageTr=document.getElementById("ageR")
+		ageTd.innerText="请输入18-40之间的正整数"
+		ageTr.appendChild(ageTd)
+		//验证年龄
+		
+		ageDom.addEventListener("blur",function(){
+			var s=ageDom.value
+			if(s>=18&&s<=40){
+				var t=s.toString()
+				var b=parseInt(t)
+				if(s==b){
+					ageTd.innerText="输入格式正确"
+					ageTd.style.color="cornflowerblue"
+					ageFlag=2
+				}
+				else{
+					ageTd.innerText="18-40之间的正整数"
+					ageTd.style.color="red"
+					//ageDom.focus()
+					return false
+				}
+			}
+			else{
+					ageTd.innerText="18-40之间的正整数"
+					ageTd.style.color="red"
+					//ageDom.focus()
+					return false
+				}
+		})
+		
+		
+		//邮箱
+		var emailFlag=1
+		var emailDom=document.getElementById("email")
+		var emailTd=document.createElement("td")
+		var emTr=document.getElementById("emailTr")
+		emailTd.innerText="请输入邮箱"
+		emTr.appendChild(emailTd)
+		//验证邮箱输入是否有效
+		emailDom.addEventListener("blur",function(){
+			var s=emailDom.value
+			if(s==""){
+				emailTd.innerText="不能输入空"
+				emailTd.style.color="red"
+				//emailDom.focus()
+				return false
+			}
+			if(s.length<11||s.length>36){
+				emailTd.innerText="请输入11-36位"
+				emailTd.style.color="red"
+				//emailDom.focus()
+				return false
+			}
+			else{
+				//满足11-36位
+				for(var i=0;i<s.length;i++){
+					var t=s[i].charCodeAt()
+					var l=s[s.length-1].charCodeAt()
+					var l2=s[s.length-2].charCodeAt()
+					var f=s[0].charCodeAt()
+					var g=s[1].charCodeAt()	
+					var h=s[2].charCodeAt()	
+					var j=s[3].charCodeAt()	
+					
+				}
+				
+				
+				//判断是否由字母数字'.'和@组成，数字和字母开头，字母结尾，倒数两个不能为'.'
+				if(((t>=48&&t<=57)||(t>=97&&t<=122)||(t>=65&&t<=90)||t==64||t==46)&&((l>=97&&l<=122)||(l>=65&&l<=90))&&l2!=46&&((f>=48&&f<=57)||(f>=97&&f<=122)||(f>=65&&f<=90))){
+					var index=s.indexOf('@')
+					var indexNew=s.indexOf('@')
+					var num=0
+					var sum=[]
+					var index2=s.indexOf('.')
+					while(index!=-1){
+						console.log(index)
+						num++
+						index=s.indexOf('@',index+1)
+					}
+					while(index2!=-1){
+						console.log(index2)
+						sum.push(index2)
+						index2=s.indexOf('.',index2+1)
+					}
+					
+					if(f!=64&&g!=64&&h!=64&&j!=64&&num==1){
+						for(var i=0;i<sum.length;i++){
+							if(sum[i]>indexNew){
+								var w=sum[0]-indexNew
+								if(w>2&&w<=7){
+									for(var i=indexNew+1;i<sum[0];i++){
+										var k=s[i].charCodeAt()
+										if((k>=97&&k<=122)||(k>=65&&k<=90)){
+											emailTd.innerText="输入格式正确"
+											emailTd.style.color="cornflowerblue"
+											emailFlag=2
+										}
+										else{
+											emailTd.innerText="@与'.'之间间隔2-6字母"
+											emailTd.style.color="red"
+											//emailDom.focus()
+											return false
+										}
+									}
+									
+									
+								}
+								else{
+									emailTd.innerText="@与'.'之间间隔2-6字母"
+									emailTd.style.color="red"
+									//emailDom.focus()
+									return false
+								}
+								
+							}
+							else{
+								emailTd.innerText="'.'符号只能输入在@符号之后"
+								emailTd.style.color="red"
+								//emailDom.focus()
+								return false
+							}
+						}
+						
+						
+					}
+					else{
+						emailTd.innerText="请输入一个也只能输入一个@符号，前面四位不能为@"
+						emailTd.style.color="red"
+						//emailDom.focus()
+						return false
+				}
+					
+				}
+				else{
+					emailTd.innerText="只能由字母数字'.'和@组成，数字和字母开头，字母结尾，倒数两个不能为'.'符号"
+					emailTd.style.color="red"
+					emailDom.focus()
+					return false
+				}
+				
+				
+			}
+			
+		})
+		
+		
+		
+		//联系方式
+		var phoFlag=1
+		var phoDom=document.getElementById("phoNum")
+		var phoTd=document.createElement("td")
+		var telTr=document.getElementById("tel")
+		phoTd.innerText="请输入11位有效电话号码"
+		telTr.appendChild(phoTd)
+		//验证联系方式是否有效
+		phoDom.addEventListener("blur",function(){
+			var s=phoDom.value
+			if(s==""){
+				phoTd.innerText="不能输入空"
+				phoTd.style.color="red"
+				//phoDom.focus()
+				return false
+			}
+			if(s.length!=11){
+				phoTd.innerText="请输入11位纯数字"
+				phoTd.style.color="red"
+				//phoDom.focus()
+				return false
+			}else{
+				for(var i=0;i<s.length;i++){
+					if(s[0]==1&&(s[1]==3||s[1]==4||s[1]==5||s[1]==6||s[1]==7||s[1]==8||s[1]==9)){
+						phoTd.innerText="电话号码输入正确"
+						phoTd.style.color="cornflowerblue"
+						phoFlag=2
+					}
+					else{
+						phoTd.innerText="必须以13，14，15，16，17，18，19开头"
+						phoTd.style.color="red"
+						//phoDom.focus()
+						return false
+					}
+				}
+			}
+		})
+		
+		
+		//密码
+		var mimaFlag=1
+		var mimaDom=document.getElementById("mima")
+		var mimaTd=document.createElement("td")
+		var pasTr=document.getElementById("mimaTr")
+		mimaTd.innerText="请输入6-18位的数字与字母"
+		pasTr.appendChild(mimaTd)
+		//验证密码格式
+		mimaDom.addEventListener("blur",function(){
+			var s=mimaDom.value
+			if(s==""){
+				mimaTd.innerText="不能输入空"
+				mimaTd.style.color="red"
+				//mimaDom.focus()
+				return false
+			}
+			if(s.length<6||s.length>18){
+				mimaTd.innerText="请输入6-18位"
+				mimaTd.style.color="red"
+				//mimaDom.focus()
+				return false
+			}else{
+				for(var i=0;i<s.length;i++){
+					var t=s[i].charCodeAt()
+					if((t>=48&&t<=57)||(t>=97&&t<=122)||(t>=65&&t<=90)){
+						mimaTd.innerText="输入格式正确"
+						mimaTd.style.color="cornflowerblue"
+						mimaFlag=2
+					}
+					else{
+						mimaTd.innerText="密码安全性较低，请输入数字和字母的组合"
+						mimaTd.style.color="red"
+						//mimaDom.focus()
+						return false
+					}
+				}
+			}
+		})
+		
+		
+		//确认密码
+		var mimaCreFlag=1
+		var mimaCreDom=document.getElementById("mimaCre")
+		var mimaCreTd=document.createElement("td")
+		var mimaCrecTr=document.getElementById("mimaCreTr")
+		mimaCreTd.innerText="请再次输入密码"
+		mimaCrecTr.appendChild(mimaCreTd)
+		//验证密码是否一致
+		mimaCreDom.addEventListener("blur",function(){
+			var t=mimaDom.value
+			var s=mimaCreDom.value
+			if(s==""){
+				mimaCreTd.innerText="不能输入空"
+				mimaCreTd.style.color="red"
+				//mimaCreDom.focus()
+				return false
+			}
+			if(s==t){
+				mimaCreTd.innerText="密码正确"
+				mimaCreTd.style.color="cornflowerblue"
+				mimaCreFlag=2
+			}else{
+				mimaCreTd.innerText="密码不一致"
+				mimaCreTd.style.color="red"
+				//mimaCreDom.focus()
+				return false
+			}
+			
+		})
+		
+
+		//支付方式
+		var payValue=6
+		var payDom=document.querySelectorAll('[name="payWay"]')
+		var weiDom=document.getElementById("wei")
+		var zDom=document.getElementById("zhiFuBao")
+		var rmbDom=document.getElementById("RMB")
+		var palDom=document.getElementById("pal")
+		var payTd=document.createElement("td")
+		var payTrDom=document.getElementById("pay")
+		payTd.innerText=""
+		payTrDom.appendChild(payTd)
+		
+		
+		//性别
+		var sexValue=2
+		var maleDom=document.querySelectorAll('[name="gender"]')
+		var famaleDom=document.getElementById("famale")
+		var sexTd=document.createElement("td")
+		var genderTr=document.getElementById("sexTr")
+		sexTd.innerText=""
+		genderTr.appendChild(sexTd)
+		function submitForm(){
+			//验证是否选择性别
+			for(var i=0;i<maleDom.length;i++){
+				if(maleDom[i].checked){
+					sexValue=maleDom[i].value
+					sexTd.innerText="已选择"
+					sexTd.style.color="cornflowerblue"
+					break
+				}
+			}
+			if(sexValue==2){
+				sexTd.innerText="请选择性别"
+				sexTd.style.color="red"
+				return false
+			}
+			
+			var t=0
+			for(var i=0;i<payDom.length;i++){
+				if(payDom[i].checked){
+					t++
+					console.log(t)
+				}
+			}
+			if(t==0||t==3||t==4){
+				payTd.innerText="只能选择一种或两种支付方式"
+				payTd.style.color="red"
+				return false
+			}else{
+				payValue=2
+				payTd.innerText="已选择"
+				payTd.style.color="cornflowerblue"
+			}
+			if(payValue==6){
+				payTd.innerText="请选择支付方式"
+				payTd.style.color="red"
+				return false
+			}
+
+			if(nameFlag==1){
+				tdName.innerText="用户名错误"
+				tdName.style.color="red"
+				nameDom.focus()
+				return false
+			}
+			
+			if(ageFlag==1){
+				ageTd.innerText="年龄输入不正确"
+				ageTd.style.color="red"
+				ageDom.focus()
+				return false
+			}
+			
+			if(emailFlag==1){
+				emailTd.innerText="邮箱输入格式不正确"
+				emailTd.style.color="red"
+				emailDom.focus()
+				return false
+			}
+			
+			if(phoFlag==1){
+				phoTd.innerText="电话号码输入不正确"
+				phoTd.style.color="red"
+				phoDom.focus()
+				return false
+			}
+			
+			if(mimaFlag==1){
+				mimaTd.innerText="密码输入不正确"
+				mimaTd.style.color="red"
+				mimaDom.focus()
+				return false
+			}
+			
+			if(mimaCreFlag==1){
+				mimaCreTd.innerText="密码错误"
+				mimaCreTd.style.color="cornflowerblue"
+				mimaCreDom.focus()
+				return false
+			}
+			
+
+			return false
+		}
+			
+			
+		
+		
+	</script>
+</html>
